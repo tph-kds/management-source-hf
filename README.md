@@ -1,7 +1,3 @@
-# Management Source Code 
-[demo-app on 🤗 Spaces](https://huggingface.co/spaces/vikenkd/demo-vqa)
-
-
 ---
 title: Demo App
 emoji: 📹
@@ -13,3 +9,8 @@ python_version: 3.9
 models: vikenkd/vqa-models
 pinned: false
 ---
+
+# Management Source Code 
+[demo-app on 🤗 Spaces](https://huggingface.co/spaces/vikenkd/demo-vqa)
+
+
