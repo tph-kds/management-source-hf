@@ -6,7 +6,7 @@ colorTo: indigo
 sdk: streamlit
 app_file: src/app.py
 python_version: 3.9
-models: vikenkd/vqa-models
+models: [OpenGVLab/Mini-InternVL-Chat-2B-V1-5]
 pinned: false
 ---
 
