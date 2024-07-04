@@ -2,13 +2,15 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import torch
+import json
 
 from PIL import Image
 from transformers import AutoTokenizer, AutoFeatureExtractor, AutoModel
 from infer import InfenceTest
 
 ## Read file all of class
-
+with open("dataclass/inverse_labels.json", "r") as js:
+     inverse_labels = json.load(js)
 
 
 #  Inititalize model
