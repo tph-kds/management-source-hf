@@ -1,15 +1,16 @@
 torch==2.3.1
 torchvision
-cython
-matplotlib
-numpy
-scipy
-pyyaml
-packaging
-pycocotools
-tensorboardx
-h5py
+transformers  
+sentence_transformers
+# cython
+# matplotlib
+# scipy
+# pyyaml
+# packaging
+# pycocotools
+# tensorboardx
+# h5py
 opencv-python
-
+numpy
 streamlit
 pillow # for PIL

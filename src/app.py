@@ -1,8 +1,52 @@
 import streamlit as st
+import numpy as np
+import pandas as pd
+import torch
+
 from PIL import Image
+from transformers import AutoTokenizer, AutoFeatureExtractor, AutoModel
+from infer import InfenceTest
+
+## Read file all of class
 
 
 
+#  Inititalize model
+model_name = "vikenkd/vqa-llm"
+device = "cuda:0" if torch.cuda.is_available() else "cpu"
+# Load the model and tokenizer
+model = AutoModel.from_pretrained(model_name)
+model = model.to(device)
+
+# Load tokenize
+visual_feature_extractor_name = "google/vit-base-patch16-224-in21k"
+textual_feature_extractor_name = "bert-base-uncased"
+
+## Text
+tokenizer = AutoTokenizer.from_pretrained(textual_feature_extractor_name)
+text_encoder = AutoModel.from_pretrained(textual_feature_extractor_name)
+for p in text_encoder.parameters():
+    p.requires_grad = False
+
+## Image processor
+image_processor = AutoFeatureExtractor.from_pretrained(visual_feature_extractor_name)
+image_encoder = AutoModel.from_pretrained(visual_feature_extractor_name)
+
+for p in image_encoder.parameters():
+    p.requires_grad = False
+
+
+image_encoder = image_encoder.to(device)
+text_encoder = text_encoder.to(device)
+
+## Initialize class
+infer_encoding = InfenceTest(image_encoder, 
+                             text_encoder, 
+                             tokenizer, 
+                             image_encoder,
+                             device)
+
+# Custom Website App for deploying that model
 
 st.title("📝 Visual Question Answering Project", )
 
@@ -67,32 +111,25 @@ if image != None:
             with col1:
                 question = st.text_area("Enter text:", placeholder="What is your question?")
             with col2:
-                st.image(image, caption="Uploaded Image.", use_column_width=True)
+                image = st.image(image, caption="Uploaded Image.", use_column_width=True)
+            if not image or  not question:
+                if not image:
+                     st.info("Please upload your image.")
+                elif not question:
+                     st.info("Please add your question.")
+            
             submitted = st.form_submit_button("Submit")     
 
 st.markdown('</div>', unsafe_allow_html=True)
 
+inverse_labels = None
 
-    # if not openai_api_key:
-    #     st.info("Please add your OpenAI API key to continue.")
-    # elif submitted:
-    #     generate_response(text)
-
-
-# if uploaded_file and question and not anthropic_api_key:
-#     st.info("Please add your Anthropic API key to continue.")
-
-# if uploaded_file and question and anthropic_api_key:
-#     article = uploaded_file.read().decode()
-#     prompt = f"""{anthropic.HUMAN_PROMPT} Here's an article:\n\n
-#     {article}\n\n\n\n{question}{anthropic.AI_PROMPT}"""
-
-#     client = anthropic.Client(api_key=anthropic_api_key)
-#     response = client.completions.create(
-#         prompt=prompt,
-#         stop_sequences=[anthropic.HUMAN_PROMPT],
-#         model="claude-v1", #"claude-2" for Claude 2 model
-#         max_tokens_to_sample=100,
-#     )
-#     st.write("### Answer")
-#     st.write(response.completion)
+if submitted:
+    encoding_status = infer_encoding.encoding(quesiton = quesiton, image = image)
+    answer = infer_encoding.infer(model= model, 
+                         inputs_require= encoding_status, 
+                         top_k= 10)
+    st.write("### Answer")
+    st.write(inverse_labels[answer["answer"]])
+    st.write(" - With answer's probability is ")
+    st.write(answer["probs"])

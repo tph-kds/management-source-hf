@@ -6,7 +6,7 @@ colorTo: indigo
 sdk: streamlit
 app_file: src/app.py
 python_version: 3.9
-models: [OpenGVLab/Mini-InternVL-Chat-2B-V1-5]
+models: ["google/vit-base-patch16-224-in21k", "bert-base-uncased", "vikenkd/vqa-llm"]
 pinned: false
 ---
 
