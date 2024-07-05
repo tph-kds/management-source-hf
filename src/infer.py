@@ -57,8 +57,8 @@ class InfenceTest:
     def infer(self, model, inputs_require, top_k: int = 10):
         
         inputs = {
-            'image_emb':  inputs_require[0],
-            'question_emb': inputs_require[1]
+            'image_emb':  inputs_require["image_emb"],
+            'question_emb': inputs_require["question_emb"]
         }
 
         with torch.no_grad():
