@@ -106,7 +106,7 @@ if image == None:
         # Open the image using PIL
         image = Image.open(uploaded_file)
         
-quesiton: str = ""
+question: str = ""
 if image != None:
         with st.form("my_form"):
             col1, col2 = st.columns(2)
@@ -127,7 +127,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 inverse_labels = None
 
 if submitted:
-    encoding_status = infer_encoding.encoding(quesiton = quesiton, image = image)
+    encoding_status = infer_encoding.encoding(question = question, image = image)
     answer = infer_encoding.infer(model= model, 
                          inputs_require= encoding_status, 
                          top_k= 10)
