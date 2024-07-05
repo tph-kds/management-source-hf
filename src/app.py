@@ -128,7 +128,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 inverse_labels = None
 
 if submitted:
-    encoding_status = infer_encoding.encoding(question = question, image = image)
+    encoding_status = infer_encoding.encoding(question = question.to(device), image = image.to(device))
     answer = infer_encoding.infer(model= model, 
                          inputs_require= encoding_status, 
                          top_k= 10)
