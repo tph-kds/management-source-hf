@@ -57,12 +57,12 @@ class InfenceTest:
     def infer(self, model, inputs_require, top_k: int = 10):
         
         inputs = {
-            'image_emb':  inputs_require["image_emb"],
-            'question_emb': inputs_require["question_emb"]
+            'image_emb':  inputs_require["image_emb"].unsqueeze(0),
+            'question_emb': inputs_require["question_emb"].unsqueeze(0)
         }
 
         with torch.no_grad():
-            outputs = model(inputs["image_emb"], inputs["question_emb"])
+            outputs = model(**inputs)
 
         # Apply softmax to get probabilities
         probabilities = F.softmax(outputs, dim=1)
