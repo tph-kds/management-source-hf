@@ -26,9 +26,6 @@ class InfenceTest:
         self.device = device
 
 
-    def __len__(self):
-        return len(self.df)
-
     def encoding(self, question, image):
 
         # image_file = image
