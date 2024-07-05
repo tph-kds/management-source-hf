@@ -31,11 +31,11 @@ class InfenceTest:
 
     def encoding(self, question, image):
 
-        image_file = image
+        # image_file = image
         question = question
         # full_path = self.type_data + "/images/" + image_file
         # source_image = os.path.join(os.getcwd(), full_path)
-        image = Image.open(image_file).convert("RGB")
+        image = image.convert("RGB")
 
         image_inputs = self.image_processor(image, return_tensors="pt")
         image_inputs = {k:v.to(self.device) for k,v in image_inputs.items()}
