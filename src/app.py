@@ -107,6 +107,7 @@ if image == None:
         image = Image.open(uploaded_file)
         
 question: str = ""
+submitted = None
 if image != None:
         with st.form("my_form"):
             col1, col2 = st.columns(2)
