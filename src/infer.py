@@ -62,7 +62,7 @@ class InfenceTest:
         }
 
         with torch.no_grad():
-            outputs = model(**inputs)
+            outputs = model(inputs["image_emb"], inputs["question_emb"])
 
         # Apply softmax to get probabilities
         probabilities = F.softmax(outputs, dim=1)
