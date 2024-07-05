@@ -45,7 +45,7 @@ text_encoder = text_encoder.to(device)
 infer_encoding = InfenceTest(image_encoder, 
                              text_encoder, 
                              tokenizer, 
-                             image_encoder,
+                             image_processor,
                              device)
 
 # Custom Website App for deploying that model
