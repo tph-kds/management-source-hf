@@ -114,7 +114,7 @@ if image != None:
             with col1:
                 question = st.text_area("Enter text:", placeholder="What is your question?")
             with col2:
-                image = st.image(image, caption="Uploaded Image.", use_column_width=True)
+                st.image(image, caption="Uploaded Image.", use_column_width=True)
             if not image or  not question:
                 if not image:
                      st.info("Please upload your image.")
